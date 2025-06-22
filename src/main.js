@@ -1,102 +1,136 @@
+const app = document.getElementById("app");
 
-import './style.css';
-
-const questions = [
+const story = [
   {
-    question: "What is my favorite color?",
-    options: ["Blue", "Black", "Red", "Pink"],
-    answer: "Black",
+    text: "You see Shiva across the room for the first time. What do you do?",
+    choices: [
+      { text: "Smile shyly 😊", next: 1 },
+      { text: "Wave excitedly 👋", next: 2 },
+    ],
   },
   {
-    question: "Where did we first meet?",
-    options: ["College", "Park", "School", "Cafe"],
-    answer: "School",
+    text: "Shiva smiles back. He walks toward you and asks if you'd like to grab coffee.",
+    choices: [
+      { text: "Yes! ☕", next: 3 },
+      { text: "Maybe later...", next: 4 },
+    ],
   },
   {
-    question: "What is my pet name for you?",
-    options: ["Babu", "Jaan", "Cutie", "Sweetie"],
-    answer: "Babu",
+    text: "He waves back and gives you a wink 😉. Later, he texts you.",
+    choices: [
+      { text: "Reply instantly 💬", next: 3 },
+      { text: "Ignore him 😌", next: 4 },
+    ],
   },
   {
-    question: "Which month is our anniversary?",
-    options: ["January", "February", "March", "June"],
-    answer: "June",
+    text: "You both go to a cozy café. He asks, 'What do you love most in life?'",
+    choices: [
+      { text: "Peaceful walks 🌙", next: 5 },
+      { text: "Romantic movies 🎥", next: 5 },
+    ],
   },
   {
-    question: "What do I love the most about you?",
-    options: ["Smile", "Eyes", "Voice", "BBS"],
-    answer: "BBS",
+    text: "Shiva still smiles and says, 'I'll wait until you’re ready.'",
+    choices: [
+      { text: "Text him back later 💌", next: 3 },
+      { text: "Ghost him 😶", next: 6 },
+    ],
   },
   {
-    question: "What is my favorite food?",
-    options: ["Burger", "Pasta", "Cheeze Burst Pizza", "Sushi"],
-    answer: "Cheeze Burst Pizza",
+    text: "Later that night, you walk together under the stars.",
+    choices: [
+      { text: "Hold his hand ❤️", next: 'end' },
+      { text: "Say something sweet 💖", next: 'end' },
+    ],
   },
   {
-    question: "What is my favorite movie?",
-    options: ["Laal Rang", "Inception", "Dangal", "Tamasha"],
-    answer: "Laal Rang",
-  },
-  {
-    question: "What is my favorite sport?",
-    options: ["Cricket", "Football", "Badminton", "Tennis"],
-    answer: "Badminton",
-  },
-  {
-    question: "Who is my favorite rapper?",
-    options: ["Raftaar", "Krsna", "Badshah", "Emiway"],
-    answer: "Krsna",
-  },
-  {
-    question: "Who is my favorite actor?",
-    options: ["Ranbir Kapoor", "Shahid Kapoor", "KK Menon", "Vicky Kaushal"],
-    answer: "KK Menon",
-  },
-  {
-    question: "What is my favorite pet?",
-    options: ["Cat", "Dog", "Rabbit", "Parrot"],
-    answer: "Dog",
+    text: "You didn’t reply. Shiva still writes you a letter and leaves it at your door.",
+    choices: [
+      { text: "Open it with a smile 😊", next: 'end' },
+      { text: "Tearfully read it 💌", next: 'end' },
+    ],
   },
 ];
 
+function renderScene(index) {
+  if (index === "end") return showEnding();
 
-let current = 0;
-let score = 0;
-
-const app = document.getElementById('app');
-
-function renderQuestion() {
-  const q = questions[current];
+  const scene = story[index];
   app.innerHTML = `
-    <div class="quiz-card">
-      <h1>${q.question}</h1>
-      <div class="options">
-        ${q.options.map(option => `
-          <button onclick="handleAnswer('${option}')">${option}</button>
-        `).join("")}
+    <h2>${scene.text}</h2>
+    ${scene.choices
+      .map((choice) => {
+        const nextVal =
+          typeof choice.next === "number"
+            ? choice.next
+            : `'${choice.next}'`;
+        return `<button onclick="renderScene(${nextVal})">${choice.text}</button>`;
+      })
+      .join("")}
+  `;
+}
+
+function showEnding() {
+  app.innerHTML = `
+    <div style="text-align: center;">
+      <h2 style="color: #d63384;">🎉 You’ve reached the heart of the story! 🎉</h2>
+      <p style="font-size: 1.2rem;">Whatever you choose... I’m just glad it's always been you, <strong>Khushi</strong>. 💖</p>
+      <p>— With all my love, Shiva 🧔</p>
+
+      <div style="margin: 20px 0;">
+        <span style="
+          font-size: 2rem;
+          padding: 10px 20px;
+          border: 2px solid #ff69b4;
+          border-radius: 12px;
+          background-color: #fff0f5;
+          color: #d63384;
+          display: inline-block;
+          animation: pulse 1.5s infinite;
+        ">🏆 LOVE BADGE UNLOCKED</span>
       </div>
+
+      <div style="font-size: 3rem; animation: heartbeat 1s infinite;">❤️</div>
+
+      <button onclick="location.reload()" style="
+        margin-top: 20px;
+        padding: 10px 20px;
+        font-size: 1rem;
+        background-color: #ff69b4;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+      ">
+        🔁 Play Again
+      </button>
     </div>
+
+    <style>
+      @keyframes heartbeat {
+        0%, 100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.3);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(255, 105, 180, 0.7);
+        }
+        70% {
+          box-shadow: 0 0 0 15px rgba(255, 105, 180, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(255, 105, 180, 0);
+        }
+      }
+    </style>
   `;
 }
 
-window.handleAnswer = function(option) {
-  if (option === questions[current].answer) score++;
-  current++;
-  if (current < questions.length) {
-    renderQuestion();
-  } else {
-    showResult();
-  }
-};
 
-function showResult() {
-  app.innerHTML = `
-    <div class="result">
-      <h2>You scored ${score}/${questions.length}</h2>
-      <p>${score === questions.length ? "Baapre Khushi Saare Sahi Jawab 💖" : "Yaar Khushi Bas Ek glt bataya"}</p>
-      <div class="hearts">❤️ 💕 💖 💘</div>
-    </div>
-  `;
-}
-
-renderQuestion();
+window.renderScene = renderScene;
+renderScene(0);

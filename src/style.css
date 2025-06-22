@@ -1,94 +1,42 @@
 body {
   margin: 0;
-  font-family: 'Comic Sans MS', cursive;
-  background: linear-gradient(to right, #ffdde1, #ee9ca7);
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: url("/background.jpg") center/cover no-repeat;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  overflow: hidden;
+  color: white;
+  text-shadow: 1px 1px 2px black;
 }
 
-.quiz-card, .result {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 25px;
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-  text-align: center;
-  width: 90%;
+#app {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 20px;
   max-width: 500px;
-  animation: fadeInUp 0.8s ease;
-}
-
-h1 {
-  font-size: 1.6rem;
-  color: #ff4e9b;
-  margin-bottom: 1.5rem;
-}
-
-.options {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-top: 1rem;
+  width: 90%;
+  text-align: center;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 button {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #ff4e9b, #ff85b3);
+  background: #ff85b3;
   color: white;
-  font-size: 1rem;
-  font-weight: bold;
+  padding: 10px 20px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(255, 105, 135, 0.3);
+  transition: 0.3s;
 }
 
 button:hover {
-  transform: scale(1.05);
-  background: linear-gradient(145deg, #ff85b3, #ff4e9b);
+  background: #ff4e9b;
 }
 
-.result h2 {
-  font-size: 2rem;
-  color: #ff4e9b;
-}
-
-.result p {
-  font-size: 1.2rem;
-  margin-top: 10px;
-  color: #333;
-}
-
-.hearts {
-  margin-top: 20px;
-  font-size: 2.2rem;
-  animation: heartFloat 3s ease-in-out infinite;
-}
-
-/* Animations */
-
-@keyframes fadeInUp {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heartFloat {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px) scale(1.1);
-  }
-  100% {
-    transform: translateY(0);
-  }
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
